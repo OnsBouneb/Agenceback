@@ -1,5 +1,6 @@
 package com.Serveur.Serveur.Repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import com.Serveur.Serveur.Entities.Vol;
 
 @RepositoryRestResource
 public interface VolRepository extends JpaRepository<Vol, Long> {
-	  //Optional<Vol> findById(Long id);
+	Optional<Vol> findById(Long id);
 
 	  void deleteById(Long id);
 	 // Vol findOne(Long id);

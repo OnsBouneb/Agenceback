@@ -56,6 +56,7 @@ public class VilleController {
 public Ville updateVille(@RequestBody Ville vol) {
     return repository.save(vol);
 }
+
     @PutMapping("/villes/{id}")
     public ResponseEntity<Object> updateVille(@RequestBody Ville vol, @PathVariable long id) {
         Optional<Ville> volOptional = repository.findById(id);
