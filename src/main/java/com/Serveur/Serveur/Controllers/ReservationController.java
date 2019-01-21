@@ -18,34 +18,52 @@ public class ReservationController {
         this.repository = repository;
     }
 
+
     @GetMapping("/reservations")
-    public List<Reservation> retrieveAllRepositories() {
+    public List<Reservation> retrieveAllReservations() {
         return repository.findAll();
     }
 
-
-    @PostMapping("/reservations")
-    public ResponseEntity<Object> createRepository(@RequestBody Reservation reservation) {
-        Reservation savedReservation = repository.save(reservation);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedReservation.getId()).toUri();
-        return ResponseEntity.created(location).build();
-
-    }
-
-    @PutMapping("/reservations/{id}")
-    public ResponseEntity<Object> updateReservation(@RequestBody Reservation reservation, @PathVariable long id) {
-        Optional<Reservation> reservationOptional = repository.findById(id);
-        if (!reservationOptional.isPresent())
-            return ResponseEntity.notFound().build(); 
-        reservation.setId(id);
-        repository.save(reservation);
-        return ResponseEntity.noContent().build();
-    }
 
     @DeleteMapping("/reservations/{id}")
     public void deleteReservation(@PathVariable long id) {
         repository.deleteById(id);
     }
+
+    @PutMapping("/reservations")
+    public Reservation updateUser(@RequestBody Reservation Reservation) {
+        return repository.save(Reservation);
+    }
+    @PutMapping("/reservations/{id}")
+    public ResponseEntity<Object> updateReservation(@RequestBody Reservation Reservation, @PathVariable long id) {
+        Optional<Reservation> ReservationOptional = repository.findById(id);
+        if (!ReservationOptional.isPresent())
+            return ResponseEntity.notFound().build();
+        Reservation.setId(id);
+        repository.save(Reservation);
+        return ResponseEntity.noContent().build();
+    }
+
+    /*
+        @PostMapping("/reservations")
+        public Reservation createUser(@RequestBody Reservation Reservation) {
+            return repository.save(Reservation);
+        }
+    */
+    @PostMapping("/reservations")
+    public ResponseEntity<Object> createReservation(@RequestBody Reservation Reservation) {
+        Reservation savedReservation = repository.save(Reservation);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedReservation.getId()).toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/reservations/{id}")
+    public Reservation getReservation(@PathVariable Long id) {
+
+        return repository.findById(id).get();
+    }
+
+
 
 
 }
